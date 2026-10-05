@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Trivia IIN · Admin</title>
+  <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body class="admin">
+  <div class="admin-wrap">
+    <h1>⚙️ Panel Admin · Trivia IIN</h1>
+
+    <section class="card panel" id="login">
+      <h2>Acceso</h2>
+      <div class="row">
+        <input class="input-3d" id="pin" type="password" placeholder="PIN" style="flex:1">
+        <button class="btn-3d" id="login-btn">Entrar</button>
+      </div>
+    </section>
+
+    <div id="controls" class="hidden" style="display:flex;flex-direction:column;gap:18px">
+      <section class="card panel">
+        <h2>Estado: <span id="phase">—</span></h2>
+        <ul class="plist" id="plist"></ul>
+      </section>
+
+      <section class="card panel">
+        <h2>Controles</h2>
+        <div class="row">
+          <button class="btn-3d green" id="force">▶ Forzar inicio</button>
+          <button class="btn-3d yellow" id="abort">⏹ Abortar partida</button>
+          <button class="btn-3d red" id="clear">🗑 Limpiar ranking</button>
+        </div>
+      </section>
+
+      <section class="card panel">
+        <h2>Ajustar puntos</h2>
+        <div class="row">
+          <select class="input-3d" id="target"></select>
+          <input class="input-3d small" id="delta" type="number" step="50" value="100">
+          <button class="btn-3d green" id="plus">＋ Sumar</button>
+          <button class="btn-3d red" id="minus">－ Restar</button>
+        </div>
+      </section>
+    </div>
+  </div>
+  <div id="toast"></div>
+
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="/js/common.js"></script>
+  <script>
+    const socket = io({ reconnectionDelay: 500 });
+    let pin = sessionStorage.getItem('pin');
+    const toast = m => { const t = $('toast'); t.textContent = m; t.classList.add('show'); setTimeout(() => t.classList.remove('show'), 2200); };
+
+    const auth = () => pin && socket.emit('admin:auth', pin);
+    socket.on('connect', auth);
+    $('login-btn').onclick = () => { pin = $('pin').value; auth(); };
+    $('pin').addEventListener('keydown', e => e.key === 'Enter' && $('login-btn').click());
+    socket.on('admin:ok', () => { sessionStorage.setItem('pin', pin); $('login').classList.add('hidden'); $('controls').classList.remove('hidden'); });
+    socket.on('admin:fail', () => { sessionStorage.removeItem('pin'); pin = null; toast('PIN incorrecto'); });
+    socket.on('admin:msg', toast);
+
+    $('force').onclick = () => socket.emit('admin:forceStart');
+    $('abort').onclick = () => confirm('¿Abortar la partida actual?') && socket.emit('admin:abort');
+    $('clear').onclick = () => confirm('¿Vaciar TODO el ranking?') && socket.emit('admin:clearScores');
+    const adjust = sign => {
+      const v = Number($('delta').value);
+      if (!$('target').value || !v) return toast('Elige jugador y valor');
+      socket.emit('admin:points', { playerId: $('target').value, delta: sign * Math.abs(v) });
+    };
+    $('plus').onclick = () => adjust(1);
+    $('minus').onclick = () => adjust(-1);
+
+    socket.on('state', s => {
+      $('phase').textContent = s.phase.toUpperCase() + (s.phase === 'question' ? ` (P${s.qIndex + 1}, ${s.remaining}s)` : '');
+      $('plist').innerHTML = s.players.length
+        ? s.players.map(p => `<li><span>${esc(p.nick)} ${p.connected ? '' : '(desconectado)'}</span><b>${p.score} pts</b></li>`).join('')
+        : '<li>Sin jugadores</li>';
+      const sel = $('target'), cur = sel.value;
+      sel.innerHTML = s.players.map(p => `<option value="${p.id}">${esc(p.nick)}</option>`).join('');
+      if (cur) sel.value = cur;
+    });
+  </script>
+</body>
+</html>

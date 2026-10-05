@@ -1,0 +1,27 @@
+[
+  {
+    "text": "¿Qué significa 'HTML'?",
+    "options": ["HyperText Markup Language", "High Tech Modern Language", "Home Tool Markup Level", "Hyper Transfer Mail Link"],
+    "correct": 0
+  },
+  {
+    "text": "¿Cuál es el resultado de 0.1 + 0.2 en JavaScript?",
+    "options": ["0.3", "0.30000000000000004", "3", "undefined"],
+    "correct": 1
+  },
+  {
+    "text": "¿Qué comando de Git sube tus commits al repositorio remoto?",
+    "options": ["git pull", "git commit", "git push", "git clone"],
+    "correct": 2
+  },
+  {
+    "text": "¿Qué estructura de datos funciona bajo el principio LIFO?",
+    "options": ["Cola (Queue)", "Árbol", "Grafo", "Pila (Stack)"],
+    "correct": 3
+  },
+  {
+    "text": "¿Qué código de estado HTTP significa 'No encontrado'?",
+    "options": ["200", "500", "404", "301"],
+    "correct": 2
+  }
+]

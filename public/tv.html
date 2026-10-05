@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Pantalla del stand: Trivia IIN en vivo.">
+  <title>Trivia IIN · Pantalla</title>
+  <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body class="tv">
+  <div class="bg-fx"><i></i><i></i><i></i><i></i><i></i></div>
+
+  <aside class="side">
+    <img class="logo" src="/assets/logo-iin-white.png" alt="Logo IIN">
+    <h2>🏆 TOP 10 DEL DÍA</h2>
+    <ol class="top-list" id="top-list"></ol>
+  </aside>
+
+  <section class="main">
+    <!-- En espera -->
+    <div class="stage" id="st-lobby">
+      <h1>¡ÚNETE A LA TRIVIA!</h1>
+      <div class="join-box">
+        <img class="qr" id="qr" alt="QR" src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==">
+        <img class="mascot" src="/assets/robot-idle.png" alt="Robot">
+      </div>
+      <div class="url" id="url">…</div>
+      <div class="slots" id="slots"></div>
+    </div>
+
+    <!-- Cuenta atrás -->
+    <div class="stage hidden" id="st-count">
+      <h1>¡PREPÁRATE!</h1>
+      <div class="big-number" id="count-num" style="font-size:20rem">3</div>
+    </div>
+
+    <!-- Pregunta -->
+    <div class="stage hidden" id="st-q" style="justify-content:space-between">
+      <div class="q-head">
+        <div class="q-count" id="q-count">Pregunta 1/5</div>
+        <div class="clock">
+          <svg viewBox="0 0 150 150"><circle class="bgc" cx="75" cy="75" r="68"/><circle class="fg" id="clock-fg" cx="75" cy="75" r="68"/></svg>
+          <span id="clock-num">12</span>
+        </div>
+      </div>
+      <div class="q-body">
+        <img class="mascot" src="/assets/robot-think.png" alt="Robot pensando">
+        <div class="card q-text" id="q-text"></div>
+      </div>
+      <div class="opts" id="opts"></div>
+      <div class="answered-row" id="answered"></div>
+    </div>
+
+    <!-- Podio -->
+    <div class="stage hidden" id="st-podium">
+      <h1>🎉 ¡PODIO! 🎉</h1>
+      <div class="podium" id="podium"></div>
+    </div>
+  </section>
+
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="/js/common.js"></script>
+  <script src="/js/tv.js"></script>
+</body>
+</html>

@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
+  <meta name="description" content="Stand de Ingeniería en Informática: conocé la carrera y jugá la Trivia IIN desde tu celular.">
+  <title>Stand IIN · Portal y Trivia</title>
+  <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body class="mobile">
+  <div class="bg-fx"><i></i><i></i><i></i><i></i><i></i></div>
+
+  <!-- Barra superior durante el juego (se muestra al ingresar con nick) -->
+  <header class="game-bar hidden" id="game-bar">
+    <img src="/assets/logo-iin-white.png" alt="Logo IIN">
+    <div class="who"><span id="bar-nick">—</span><i class="dot-live" title="Conectado"></i></div>
+  </header>
+
+  <!-- Estado 0: Portal del Stand (Hub) -->
+  <main class="screen hub" id="screen-hub">
+    <header class="hub-header">
+      <img src="/assets/logo-iin-white.png" alt="Logo Ingeniería en Informática">
+    </header>
+
+    <section class="hero">
+      <img class="mascot" src="/assets/robot-idle.png" alt="Robot saludando">
+      <h1>¡Bienvenido al stand de Informática!</h1>
+      <p class="sub">Jugá la trivia, conocé la carrera y llevate tus dudas resueltas.</p>
+      <button class="btn-3d block hero-btn" id="btn-play" type="button">🎮 UNIRSE A LA TRIVIA</button>
+    </section>
+
+    <section class="acc-list" aria-label="Información de la carrera">
+      <!-- Malla -->
+      <article class="acc" id="acc-malla">
+        <button class="acc-head" type="button" aria-expanded="false"><span>📚 Malla Curricular Interactiva</span><b class="chev">▾</b></button>
+        <div class="acc-body"><div class="acc-inner">
+          <div class="legend">
+            <span class="tag t-math">Matemática</span>
+            <span class="tag t-prog">Programación</span>
+            <span class="tag t-hw">Hardware / Redes</span>
+          </div>
+          <div id="malla"></div>
+        </div></div>
+      </article>
+
+      <!-- FAQ -->
+      <article class="acc" id="acc-faq">
+        <button class="acc-head" type="button" aria-expanded="false"><span>💡 Preguntas Frecuentes</span><b class="chev">▾</b></button>
+        <div class="acc-body"><div class="acc-inner">
+          <div class="faq">
+            <h3>¿Necesito saber programar antes de ingresar?</h3>
+            <p>No. La carrera asume nivel cero. En el primer semestre se enseña desde la lógica básica algorítmica.</p>
+          </div>
+          <div class="faq">
+            <h3>¿En qué se diferencia de Sistemas o Ciencias de la Computación?</h3>
+            <p>Informática (IIN) combina software de alto nivel con el entendimiento profundo del hardware, arquitecturas complejas, redes y sistemas inteligentes.</p>
+          </div>
+          <div class="faq">
+            <h3>¿Hay trabajo mientras estudio?</h3>
+            <p>Sí, la alta demanda permite que la mayoría consiga pasantías o empleos formales a partir del tercer año.</p>
+          </div>
+        </div></div>
+      </article>
+
+      <!-- Detrás del código -->
+      <article class="acc" id="acc-code">
+        <button class="acc-head" type="button" aria-expanded="false"><span>💻 ¿Cómo creamos este juego?</span><b class="chev">▾</b></button>
+        <div class="acc-body"><div class="acc-inner">
+          <div class="faq">
+            <h3>📡 Red Local (Hotspot)</h3>
+            <p>Tu teléfono no usa internet; habla por radio directamente con nuestra notebook.</p>
+          </div>
+          <div class="faq">
+            <h3>⚡ Node.js &amp; WebSockets</h3>
+            <p>Un túnel bidireccional que procesa tu respuesta en menos de 5 milisegundos para que el podio sea exacto.</p>
+          </div>
+          <p class="callout">¡Imaginate lo que vas a poder programar cuando ingreses a la carrera!</p>
+        </div></div>
+      </article>
+
+      <!-- Créditos -->
+      <article class="acc" id="acc-credits">
+        <button class="acc-head" type="button" aria-expanded="false"><span>👥 Delegación y Créditos</span><b class="chev">▾</b></button>
+        <div class="acc-body"><div class="acc-inner">
+          <div class="faq"><h3>👑 Delegada de Carrera</h3><p>Andrea Rodríguez</p></div>
+          <div class="faq"><h3>💻 Equipo de Desarrollo</h3><p>Fernando Mancuello</p></div>
+          <div class="faq">
+            <h3>🤝 Workgroup / Delegación IIN</h3>
+            <div class="chips">
+              <span>Adriana Ibarra</span><span>Alvaro Benitez</span><span>Araceli Villalba</span><span>Atilio</span>
+              <span>Milner</span><span>Rodrigo Brizuela</span><span>Santino G</span><span>Adan Caceres</span>
+              <span>Aylen</span><span>Diego Torres</span><span>Gabriela Gamarra</span><span>Luci R</span><span>Fernando Mancuello</span>
+            </div>
+          </div>
+          <div class="faq">
+            <h3>📱 Redes</h3>
+            <p>Seguinos en Instagram como <strong>@delegacion.iin</strong> y <strong>@politecnicauna</strong> para enterarte del cursillo de ingreso.</p>
+          </div>
+        </div></div>
+      </article>
+    </section>
+  </main>
+
+  <!-- Estado 1: unirse (nickname) -->
+  <main class="screen hidden" id="screen-join">
+    <img class="logo" src="/assets/logo-iin-white.png" alt="Logo IIN">
+    <img class="mascot" src="/assets/robot-idle.png" alt="Robot saludando">
+    <h1>¡Entra al juego!</h1>
+    <form class="form" id="join-form" autocomplete="off">
+      <input class="input-3d" id="nick" maxlength="14" placeholder="Tu nickname" autocapitalize="off" required>
+      <button class="btn-3d block" id="join-btn" type="submit">Unirse</button>
+      <div class="err" id="join-err"></div>
+      <button class="link-back" id="btn-back" type="button">← Volver al portal</button>
+    </form>
+  </main>
+
+  <!-- Lobby -->
+  <main class="screen hidden" id="screen-lobby">
+    <img class="mascot" src="/assets/robot-idle.png" alt="Robot">
+    <h1 id="lobby-title">¡Estás dentro!</h1>
+    <p class="sub" id="lobby-sub">Esperando jugadores…</p>
+  </main>
+
+  <!-- Cuenta atrás -->
+  <main class="screen hidden" id="screen-count">
+    <p class="sub display" style="font-size:2rem">¡Prepárate!</p>
+    <div class="big-number" id="count-num">3</div>
+  </main>
+
+  <!-- Estado 2: gamepad (oculto por defecto) -->
+  <main class="screen hidden" id="screen-game">
+    <div class="hud">
+      <span id="hud-q">1/5</span>
+      <span class="timer" id="hud-time">12</span>
+      <span id="hud-score">0</span>
+    </div>
+    <div class="pad" id="pad"></div>
+    <div class="waiting-tag hidden" id="wait-tag">🔒 Respuesta enviada</div>
+  </main>
+
+  <!-- Flash acierto/fallo -->
+  <div class="flash hidden" id="flash"></div>
+
+  <!-- Estado 3: fin -->
+  <main class="screen hidden" id="screen-end">
+    <img class="mascot" src="/assets/robot-win.png" alt="Robot celebrando">
+    <p class="sub display" style="font-size:1.6rem">Tu puntaje</p>
+    <div class="score-final" id="end-score">0</div>
+    <div class="title-badge" id="end-title">—</div>
+    <p class="sub" id="end-rank"></p>
+  </main>
+
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="/js/common.js"></script>
+  <script src="/js/player.js"></script>
+</body>
+</html>
